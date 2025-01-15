@@ -1,75 +1,56 @@
-#!/usr/bin/python3
-
 class Checkbook:
-    """
-    A simple checkbook class for managing a balance with deposit and withdrawal.
-    """
-
     def __init__(self):
-        """
-        Initialize the checkbook with a balance of 0.0.
-        """
+        """Initialise le solde du compte à 0.0."""
         self.balance = 0.0
 
     def deposit(self, amount):
-        """
-        Add money to the balance.
-        Args:
-            amount (float): The amount to deposit.
-        """
+        """Dépose une somme d'argent et met à jour le solde."""
         if amount <= 0:
-            print("Deposit amount must be positive.")
+            print("Please enter a valid amount greater than zero.")
             return
         self.balance += amount
-        print("Deposited: ${:.2f}".format(amount))
+        print("Deposited ${:.2f}".format(amount))
         print("Current Balance: ${:.2f}".format(self.balance))
 
     def withdraw(self, amount):
-        """
-        Subtract money from the balance.
-        Args:
-            amount (float): The amount to withdraw.
-        """
+        """Retire une somme d'argent du compte si le solde est suffisant."""
         if amount <= 0:
-            print("Withdrawal amount must be positive.")
+            print("Please enter a valid amount greater than zero.")
             return
         if amount > self.balance:
             print("Insufficient funds to complete the withdrawal.")
-            return
-        self.balance -= amount
-        print("Withdrew: ${:.2f}".format(amount))
-        print("Current Balance: ${:.2f}".format(self.balance))
+        else:
+            self.balance -= amount
+            print("Withdrew ${:.2f}".format(amount))
+            print("Current Balance: ${:.2f}".format(self.balance))
 
     def get_balance(self):
-        """
-        Display the current balance.
-        """
+        """Affiche le solde actuel du compte."""
         print("Current Balance: ${:.2f}".format(self.balance))
 
 
 def main():
-    """
-    Main function to run the checkbook application.
-    """
+    """Fonction principale qui gère l'interaction avec l'utilisateur."""
     cb = Checkbook()
     while True:
-        action = input("What would you like to do? (deposit, withdraw, balance, exit): ").strip().lower()
-        if action == 'exit':
+        action = input(
+            "What would you like to do? (deposit, withdraw, balance, exit): ")
+        if action.lower() == 'exit':
             print("Goodbye!")
             break
-        elif action == 'deposit':
+        elif action.lower() == 'deposit':
             try:
                 amount = float(input("Enter the amount to deposit: $"))
                 cb.deposit(amount)
             except ValueError:
-                print("Invalid input. Please enter a valid number.")
-        elif action == 'withdraw':
+                print("Invalid amount. Please enter a valid number.")
+        elif action.lower() == 'withdraw':
             try:
                 amount = float(input("Enter the amount to withdraw: $"))
                 cb.withdraw(amount)
             except ValueError:
-                print("Invalid input. Please enter a valid number.")
-        elif action == 'balance':
+                print("Invalid amount. Please enter a valid number.")
+        elif action.lower() == 'balance':
             cb.get_balance()
         else:
             print("Invalid command. Please try again.")
@@ -77,4 +58,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
